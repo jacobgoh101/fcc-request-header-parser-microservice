@@ -9,7 +9,7 @@ app.get('*', (req,res) => {
   res.setHeader("Content-Type", "application/json");
 
   const locales = new locale.Locales(req.headers["accept-language"]);
-  let ipaddress = req.ip;
+  let ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   let language = locales[0];
   let software = uaParser(req.headers["user-agent"]);
   software = software.os;
